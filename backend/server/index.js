@@ -45,7 +45,7 @@ connectDB();
 
 // Routes
 
-app.use('/api', loginRoutes);
+app.use('/stulogin', loginRoutes);
 app.use('/register', registerStudentRoute);
 app.use('/post-news', addTextRoute);
 

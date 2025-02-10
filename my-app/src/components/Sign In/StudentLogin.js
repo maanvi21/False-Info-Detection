@@ -27,7 +27,7 @@ function StudentLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/login', formData);  // Use '/api/login'
+      const response = await axios.post('http://localhost:5000/stulogin', formData);  
       console.log(response.data);
       if (response.data.token) {
         localStorage.setItem('token', response.data.token); // Store token in local storage

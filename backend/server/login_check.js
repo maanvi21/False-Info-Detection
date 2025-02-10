@@ -7,18 +7,20 @@ const Student = require('./models/studentModel'); // Adjust as needed
 const router = express.Router();
 
 // Define POST route for login
-router.post('/login', async (req, res) => {
+router.post('/stulogin', async (req, res) => {
   const { username, password } = req.body;
 
   try {
     const student = await Student.findOne({ username });
 
     if (!student) {
+      console.log("User not found");
       return res.status(400).json({ message: "User not found" });
     }
 
     const isMatch = await bcrypt.compare(password, student.password);
     if (!isMatch) {
+      console.log("Invalid credentials");
       return res.status(400).json({ message: "Invalid credentials" });
     }
 

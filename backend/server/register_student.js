@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const SignIn = require('../models/signInModel');
+const SignIn = require('../server/signin_model.js'); // Fixed the path
 
 // Register Student Route
 router.post('/', async (req, res) => {
