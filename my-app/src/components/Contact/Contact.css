@@ -1,0 +1,183 @@
+.contact-container {
+    min-height: 100vh;
+
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Navigation Styles */
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #e4c5c5;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .nav-menu {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .nav-item {
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Content Styles */
+  .contact-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .contact-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #fff;
+    margin: 30px 0;
+    font-style: italic;
+  }
+  
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  /* Card Styles */
+  .contact-card {
+    background-color: #ffd4d4;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .contact-card h2 {
+    color: #333;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e4c5c5;
+    font-size: 1.5rem;
+  }
+  
+  /* Form Styles */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .form-group label {
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 12px;
+    border: 2px solid #e6b8b8;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: #d4a0a0;
+  }
+  
+  .submit-button {
+    background-color: #666;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+  }
+  
+  .submit-button:hover {
+    background-color: #555;
+  }
+  
+  /* Info Card Styles */
+  .info-section {
+    margin-bottom: 25px;
+  }
+  
+  .info-section h3 {
+    color: #444;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+  
+  .info-section p {
+    color: #555;
+    margin-bottom: 5px;
+    line-height: 1.5;
+  }
+  
+  /* Hover Effects */
+  .contact-card {
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .contact-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .navigation {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .nav-menu {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+  
+    .contact-title {
+      font-size: 2rem;
+    }
+  
+    .submit-button {
+      width: 100%;
+    }
+  }
+  
+  /* Additional Styling */
+  input::placeholder,
+  textarea::placeholder {
+    color: #999;
+  }
+  
+  .info-card {
+    background-color: #ffe4e4;
+  }
