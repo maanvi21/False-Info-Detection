@@ -2,7 +2,7 @@ import React from "react";
 import "./Studenthp.css";
 import Button from "../Button";
 import UserNavbar from "./UserNavbar";
-import StudentAnnouncements from "./StudentAnnouncements"; // Add this line to import the component
+import Announcements from "../Announcements"; // Add this line to import the component
 
 
 const Studenthp = () => {
@@ -16,7 +16,7 @@ const Studenthp = () => {
 
       <div className="content-container">
         {/* Announcements Section */}
-        <StudentAnnouncements />
+        <Announcements />
         
 
         {/* News Section */}
