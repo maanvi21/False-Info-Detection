@@ -3,6 +3,7 @@ import './AdminLogin.css';
 import { useNavigate } from 'react-router-dom';
 import Back from '../Back';
 import Button from '../Button';
+import axios from 'axios';
 function AdminLogin() {
   const navigate=useNavigate();
 
@@ -21,13 +22,24 @@ const [department, setDepartment]=useState("");
       [name]: value
     });
   };
-
-  const handleSubmit = (e) => {
+// submit function
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here
-    console.log('Form submitted:', formData);
+    try {
+      const response = await axios.post('http://localhost:5000/adminlogin', formData);  
+      console.log(response.data);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token); // Store token in local storage
+        alert("Login Successful!");
+        navigate('/adminhome'); // Redirect to student dashboard
+      } else {
+        alert("No token received");
+      }
+    } catch (error) {
+      console.error(error.response?.data); // Log the error message from the backend
+      alert(error.response?.data?.message || "Invalid Username or Password!");
+    }
   };
-
   
   return (
     <div className="login-container">
@@ -78,7 +90,7 @@ const [department, setDepartment]=useState("");
           </div>
 
 
-          <Button text='LOGIN' onClick={''}/>
+          <Button text='LOGIN' onClick={handleSubmit}/>
        
 
           <div className="forgot-password">

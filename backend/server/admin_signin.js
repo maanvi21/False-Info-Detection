@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const SignIn = require('./signin_model.js'); // Fixed the path
+const AdminSignin = require('./admin_signin_model.js'); 
+// Register Admin Route
 
-// Register Student Route
 router.post('/', async (req, res) => {
     try {
         const { username, password, email, phone } = req.body;
@@ -13,10 +13,10 @@ router.post('/', async (req, res) => {
         }
 
         // Create a new user
-        const newUser = new SignIn({ username, password, email, phone });
+        const newUser = new AdminSignin({ username, password, email, phone });
         await newUser.save();
 
-        res.status(201).json({ message: 'User registered successfully!' });
+        res.status(201).json({ message: 'Admin registered successfully!' });
     } catch (error) {
         console.error('Error in registration:', error);
 
@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: `${duplicateField} already exists` });
         }
 
-        res.status(500).json({ message: 'Error registering user', error });
+        res.status(500).json({ message: 'Error registering Admin', error });
     }
 });
 

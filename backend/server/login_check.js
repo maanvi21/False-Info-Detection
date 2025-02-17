@@ -2,12 +2,12 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Student = require('./models/studentModel'); // Adjust as needed
+const Student = require('./signin_model.js'); // Adjust as needed
 
 const router = express.Router();
 
 // Define POST route for login
-router.post('/stulogin', async (req, res) => {
+router.post('/', async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -19,6 +19,10 @@ router.post('/stulogin', async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(password, student.password);
+console.log("Entered Password:", password);
+console.log("Stored Hashed Password:", student.password);
+console.log("Password Match Status:", isMatch);
+
     if (!isMatch) {
       console.log("Invalid credentials");
       return res.status(400).json({ message: "Invalid credentials" });

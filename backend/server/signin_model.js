@@ -17,6 +17,6 @@ signInSchema.pre('save', async function (next) {
     next();
 });
 
-const SignIn = mongoose.model('sign_in', signInSchema);
+const SignIn = mongoose.model('sign_ins', signInSchema);
 
 module.exports = SignIn;

@@ -1,31 +1,23 @@
-import React from 'react';
-import './Studenthp.css';
-import Button from '../Button';
-import UserNavbar from './UserNavbar';
+import React from "react";
+import "./Studenthp.css";
+import Button from "../Button";
+import UserNavbar from "./UserNavbar";
+import StudentAnnouncements from "./StudentAnnouncements"; // Add this line to import the component
+
 
 const Studenthp = () => {
+ 
+
   return (
     <div className="student-container">
-      {/* Navigation Bar */}
-      
-     
-      <UserNavbar/>
+      <UserNavbar />
 
-      {/* Student Header */}
       <h1 className="student-header">STUDENT</h1>
 
-      {/* Main Content */}
       <div className="content-container">
         {/* Announcements Section */}
-        <div className="card announcement-card">
-          <div className="card-header">
-            <span className="speaker-icon">📢</span>
-            <h2>Announcements:</h2>
-          </div>
-          <div className="announcement-content">
-            {/* Announcement content will go here */}
-          </div>
-        </div>
+        <StudentAnnouncements />
+        
 
         {/* News Section */}
         <div className="card news-card">
@@ -37,10 +29,9 @@ const Studenthp = () => {
               placeholder="TYPE YOUR INPUT HERE..."
               className="news-input"
             />
-          <Button text='CHECK' onClick={''}/>
+            <Button text="CHECK" onClick={() => {}} />
           </div>
         </div>
-  
       </div>
     </div>
   );

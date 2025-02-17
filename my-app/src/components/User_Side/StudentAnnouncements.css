@@ -1,0 +1,38 @@
+.announcement-content {
+    background-color: rgba(252, 228, 228, 0.5);
+    border: 1px solid #f8d7d7;
+    border-radius: 8px;
+    height: 250px; /* Adjust height */
+    padding: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .scrolling-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: scrollUp 10s linear infinite; /* Adjust speed */
+  }
+  
+  .announcement-item {
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Scroll animation */
+  @keyframes scrollUp {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+  

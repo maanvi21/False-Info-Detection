@@ -1,12 +1,11 @@
 const express = require('express');
-
 const cors = require('cors');
-
-const connectDB = require('./db'); // Assuming your db.js exists
-
-const loginRoutes = require('./login_check.js'); // Assuming this exists
+const connectDB = require('./db.js'); // Assuming your db.js exists
+const studentLoginRoutes = require('./login_check.js'); // Assuming this exists
 const registerStudentRoute = require('./register_student.js');
-const addTextRoute = require("./dataset_req");
+const addTextRoute = require("./dataset_req.js");
+const adminSignInRoute =require('./admin_signin.js');
+const adminLoginRoute=require('./admin_login_check.js');
 
 
 require('dotenv').config();
@@ -45,10 +44,11 @@ connectDB();
 
 // Routes
 
-app.use('/stulogin', loginRoutes);
+app.use('/stulogin', studentLoginRoutes);
 app.use('/register', registerStudentRoute);
 app.use('/post-news', addTextRoute);
-
+app.use('/admin-signin',adminSignInRoute);
+app.use('/adminlogin',adminLoginRoute)
 
 // Start Server
 
