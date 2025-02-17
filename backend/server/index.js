@@ -6,6 +6,8 @@ const registerStudentRoute = require('./register_student.js');
 const addTextRoute = require("./dataset_req.js");
 const adminSignInRoute =require('./admin_signin.js');
 const adminLoginRoute=require('./admin_login_check.js');
+const displayAnnouncementsRoute = require('./announcements_display.js');
+const insertAnnouncementsRoute=require('./announcements_insert.js');
 
 
 require('dotenv').config();
@@ -49,7 +51,8 @@ app.use('/register', registerStudentRoute);
 app.use('/post-news', addTextRoute);
 app.use('/admin-signin',adminSignInRoute);
 app.use('/adminlogin',adminLoginRoute)
-
+app.use('/display-announcements', displayAnnouncementsRoute);
+app.use('/insert-announcements', insertAnnouncementsRoute);
 // Start Server
 
 const port = process.env.PORT || 5000;

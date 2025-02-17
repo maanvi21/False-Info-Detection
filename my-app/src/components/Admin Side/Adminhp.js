@@ -41,29 +41,30 @@ const postAnnouncement = async () => {
     alert("Please enter an announcement");
     return;
   }
-  
+
   try {
-    const response = await fetch("http://localhost:5000/post-news/add-text", {
+    const response = await fetch("http://localhost:5000/post-news", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ text: announcement }),
     });
-    
+
     const data = await response.json();
-    
+
     if (response.ok) {
       // Update local announcements array with the new announcement
       setAnnouncements([...announcements, announcement]);
-      alert("Announcement added successfully!");
+      alert("Announcement added successfully to both MongoDB and CSV!");
       setAnnouncement("");
     } else {
       alert(`Failed to add announcement: ${data.error}`);
     }
   } catch (error) {
-    console.error("Error:", error);
-    alert("An error occurred while adding the announcement.");
+    console.error("❌ Error:", error);
+    alert("❌ An error occurred while adding the announcement.");
   }
 };
+
 
   return (
     <div className="admin-container">

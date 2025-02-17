@@ -20,33 +20,33 @@ const AnnouncementsSchema = new mongoose.Schema({
 
 // insert 8 announcements
 
-async function insertAnnouncements(){
-    try {
-        const announcements = [
-            { title: 'Announcement 1', description: 'This is the first announcement' },
-            { title: 'Announcement 2', description: 'This is the second announcement' },
-            { title: 'Announcement 3', description: 'This is the third announcement' },
-            { title: 'Announcement 4', description: 'This is the fourth announcement' },
-            { title: 'Announcement 5', description: 'This is the fifth announcement' },
-            { title: 'Announcement 6', description: 'This is the sixth announcement' },
-            { title: 'Announcement 7', description: 'This is the seventh announcement' },
-            { title: 'Announcement 8', description: 'This is the eighth announcement' }
-        ];
-        await Announcements.insertMany(announcements);
-        console.log("✅ Announcements inserted successfully!");
-    } catch (error) {
-        console.error("❌ Error inserting announcements:", error);
-    } finally {
-        mongoose.connection.close(); // Close DB connection after insertion
-    }
+// async function insertAnnouncements(){
+//     try {
+//         const announcements = [
+//             { title: 'Announcement 1', description: 'This is the first announcement' },
+//             { title: 'Announcement 2', description: 'This is the second announcement' },
+//             { title: 'Announcement 3', description: 'This is the third announcement' },
+//             { title: 'Announcement 4', description: 'This is the fourth announcement' },
+//             { title: 'Announcement 5', description: 'This is the fifth announcement' },
+//             { title: 'Announcement 6', description: 'This is the sixth announcement' },
+//             { title: 'Announcement 7', description: 'This is the seventh announcement' },
+//             { title: 'Announcement 8', description: 'This is the eighth announcement' }
+//         ];
+//         await Announcements.insertMany(announcements);
+//         console.log("✅ Announcements inserted successfully!");
+//     } catch (error) {
+//         console.error("❌ Error inserting announcements:", error);
+//     } finally {
+//         mongoose.connection.close(); // Close DB connection after insertion
+//     }
 
-}
+// }
 
     async function connectDB() {
         try {
           await mongoose.connect(process.env.MONGO_URI);
           console.log("✅ MongoDB Connected Successfully!");
-insertAnnouncements();
+// insertAnnouncements();
         } catch (err) {
           console.error("❌ MongoDB Connection Error:", err);
           process.exit(1);
