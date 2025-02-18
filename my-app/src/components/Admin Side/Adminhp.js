@@ -90,6 +90,7 @@ const Adminhp = () => {
         alert("Announcement added successfully to both MongoDB and CSV!");
         setTitle("");
         setDescription("");
+        setSelectedFile(null);
       } else {
         alert(`Failed to add announcement: ${data.error}`);
       }
