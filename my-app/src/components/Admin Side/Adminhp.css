@@ -1,32 +1,10 @@
+/* Admin Container */
 .admin-container {
   min-height: 100vh;
   padding: 20px;
   font-family: Arial, sans-serif;
 }
 
-/* Navigation Styles */
-.navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background-color: #e4c5c5;
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.nav-menu {
-  display: flex;
-  gap: 30px;
-}
-
-.nav-item {
-  font-weight: 600;
-  color: #333;
-  cursor: pointer;
-}
-
-/* Header Styles */
 .admin-header {
   text-align: center;
   font-size: 2rem;
@@ -53,7 +31,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Announcement Card */
 .announcement-card {
   height: 100%;
 }
@@ -81,7 +58,7 @@
   flex-direction: column;
 }
 
-/* Post Card */
+/* Post Section */
 .post-card {
   height: 100%;
 }
@@ -155,4 +132,85 @@
 .button-group {
   display: flex;
   gap: 10px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal-content {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  transition: transform 0.3s ease;
+  transform: scale(0.9);
+}
+
+.modal-content.show {
+  transform: scale(1);
+}
+
+h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+
+/* Center the modal */
+.modal-content ul li button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  text-align: left;
+  padding-left: 0;
+  cursor: pointer;
+  color: #007bff;
+  transition: color 0.2s ease-in-out;
+}
+
+.modal-content ul li button:hover {
+  color: #0056b3;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Highlight the selected announcement */
+.announcement-item.selected {
+  border: 2px solid #ff5e5e;
+  background-color: #ffe6e6;
+  font-weight: bold;
 }

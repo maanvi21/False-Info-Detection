@@ -21,7 +21,7 @@ const Home = () => {
       <div className="content-wrapper">
         {/* Hero Section */}
         <div className="hero-section">
-          <h1 className="main-title">Welcome to Fake News Detection</h1>
+          <h1 className="main-title">Welcome to College Information Verifer</h1>
           <p className="subtitle">Your trusted platform for verifying academic information</p>
         </div>
 

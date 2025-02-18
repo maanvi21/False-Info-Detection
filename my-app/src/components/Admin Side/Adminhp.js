@@ -5,7 +5,7 @@ import AdminNavbar from "./AdminNavbar";
 import Announcements from '../Announcements'
 
 const Adminhp = () => {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState([]);
   const [description, setDescription] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   
@@ -23,6 +23,8 @@ const Adminhp = () => {
     return () => clearInterval(interval);
   }, [title]);
 
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
 
 
   const handleTitleChange = (e) => setTitle(e.target.value);
@@ -39,6 +41,31 @@ const Adminhp = () => {
     setSelectedFile(null);
   };
 
+  const openDeleteModal = () => {
+    setShowDeleteModal(true);
+    setTimeout(() => {
+      document.querySelector('.modal-content').classList.add('show');
+    }, 10); // Delay to trigger CSS animation
+  };
+
+  const closeDeleteModal = () => {
+    document.querySelector('.modal-content').classList.remove('show');
+    setTimeout(() => {
+      setShowDeleteModal(false);
+      setSelectedAnnouncement(null);
+    }, 300); // Wait for animation to complete before hiding modal
+  };
+
+  const deleteAnnouncement = () => {
+    const newAnnouncements = title.filter(
+      (announcement, index) => index !== selectedAnnouncement
+    );
+    setTitle(newAnnouncements);
+    setSelectedAnnouncement(null); // Reset selected announcement after deletion
+    closeDeleteModal();
+  };
+
+
   const postAnnouncement = async () => {
     if (!title.trim()) {
       alert("Please enter an announcement");
@@ -51,6 +78,7 @@ const Adminhp = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: title,
           description:description,
+          file:selectedFile,
          }),
       });
   
@@ -111,13 +139,39 @@ const Adminhp = () => {
             {/* Buttons */}
             <div className="button-group">
               <Button text="POST" onClick={postAnnouncement} />
-              <Button text="DELETE" onClick={clearInputs} className="delete-button" />
+              <Button text="DELETE" onClick={openDeleteModal} className="delete-button" />
             </div>
           </div>
         </div>
       </div>
+
+
+      
+   
+      {/* Delete Modal */}
+      {showDeleteModal && (
+        <div className="modal-overlay" onClick={closeDeleteModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3>Select Announcement to Delete</h3>
+            <ul>
+              {title.map((item, index) => (
+                <li key={index}>
+                  <button onClick={() => setSelectedAnnouncement(index)}>
+                    {item}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <div className="modal-actions">
+             <Button text='CANCEL'onClick={closeDeleteModal}/>
+<Button text= 'DELETE' onClick={deleteAnnouncement}/>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 
 export default Adminhp;
