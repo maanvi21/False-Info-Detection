@@ -8,6 +8,7 @@ const adminSignInRoute =require('./admin_signin.js');
 const adminLoginRoute=require('./admin_login_check.js');
 const displayAnnouncementsRoute = require('./announcements_display.js');
 const insertAnnouncementsRoute=require('./announcements_insert.js');
+const deleteAnnouncementRoute=require('./announcements_delete.js');
 
 
 require('dotenv').config();
@@ -24,7 +25,7 @@ app.use(cors({
 
   origin: 'http://localhost:3000',  // Allow requests from frontend
 
-  methods: 'GET,POST',  // Allow methods
+  methods: 'GET,POST,DELETE',  // Allow methods
 
   allowedHeaders: 'Content-Type,Authorization', // Allow headers
 
@@ -53,6 +54,7 @@ app.use('/admin-signin',adminSignInRoute);
 app.use('/adminlogin',adminLoginRoute)
 app.use('/display-announcements', displayAnnouncementsRoute);
 app.use('/insert-announcements', insertAnnouncementsRoute);
+app.use('/delete-announcement', deleteAnnouncementRoute);
 // Start Server
 
 const port = process.env.PORT || 5000;

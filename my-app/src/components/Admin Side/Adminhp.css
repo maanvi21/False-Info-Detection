@@ -214,3 +214,146 @@ li {
   background-color: #ffe6e6;
   font-weight: bold;
 }
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  transition: transform 0.3s ease;
+  transform: scale(0.9);
+}
+
+.modal-content.show {
+  transform: scale(1);
+}
+
+/* Modal Header */
+.modal-content h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin-bottom: 25px;
+  text-align: center;
+  border-bottom: 2px solid #ffd4d4;
+  padding-bottom: 15px;
+}
+
+/* Announcement List */
+.modal-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.modal-content ul::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content ul::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.modal-content ul::-webkit-scrollbar-thumb {
+  background: #ffd4d4;
+  border-radius: 4px;
+}
+
+.modal-content li {
+  margin: 10px 0;
+}
+
+/* Announcement Buttons */
+.modal-content ul li button {
+  width: 100%;
+  padding: 12px 15px;
+  font-size: 1rem;
+  text-align: left;
+  background-color: #f8f8f8;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.modal-content ul li button:hover {
+  background-color: #ffeaea;
+  border-color: #ffd4d4;
+}
+
+/* Selected Announcement Style */
+.modal-content ul li button.selected {
+  background-color: #ffd4d4;
+  border-color: #ff9999;
+  color: #4a1519;
+  font-weight: 500;
+}
+
+/* Modal Actions */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px solid #ffd4d4;
+}
+
+/* Action Buttons */
+.modal-actions button {
+  padding: 10px 25px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  min-width: 120px;
+}
+
+.modal-actions button:first-child {
+  background-color: #fff;
+  border: 2px solid #ffd4d4;
+  color: #4a1519;
+}
+
+.modal-actions button:first-child:hover {
+  background-color: #ffeaea;
+}
+
+.modal-actions button:last-child {
+  background-color: #4a1519;
+  border: 2px solid #4a1519;
+  color: white;
+}
+
+.modal-actions button:last-child:hover {
+  background-color: #681c20;
+  border-color: #681c20;
+}
+
+/* Disabled Delete Button */
+.modal-actions button:last-child:disabled {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  cursor: not-allowed;
+}
