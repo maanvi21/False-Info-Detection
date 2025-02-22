@@ -24,7 +24,7 @@ function Announcements() {
       if (scrollRef.current) {
         scrollRef.current.scrollTop += 0.25;
       }
-    }, 500); // Adjust interval speed
+    }, 100); // Adjust interval speed
     
         return () => clearInterval(interval);
       }, [announcements]);
