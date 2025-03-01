@@ -3,6 +3,7 @@ import "./Studenthp.css";
 import Button from "../Button";
 import UserNavbar from "./UserNavbar";
 import Announcements from "../Announcements"; // Add this line to import the component
+import NewsInput from "../NewsInput";
 
 
 const Studenthp = () => {
@@ -20,18 +21,10 @@ const Studenthp = () => {
         
 
         {/* News Section */}
-        <div className="card news-card">
-          <h2 className="news-header">Check Your News Here:</h2>
-          <div className="news-content">
-            <label>NEWS:</label>
-            <input 
-              type="text" 
-              placeholder="TYPE YOUR INPUT HERE..."
-              className="news-input"
-            />
-            <Button text="CHECK" onClick={() => {}} />
-          </div>
-        </div>
+  
+           
+            <NewsInput/>
+            
       </div>
     </div>
   );
