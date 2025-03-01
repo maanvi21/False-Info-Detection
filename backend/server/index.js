@@ -9,6 +9,7 @@ const adminLoginRoute=require('./admin_login_check.js');
 const displayAnnouncementsRoute = require('./announcements_display.js');
 const insertAnnouncementsRoute=require('./announcements_insert.js');
 const deleteAnnouncementRoute=require('./announcements_delete.js');
+const getStudentNewsRoute=require('./nlp_post.js');
 
 
 require('dotenv').config();
@@ -55,6 +56,7 @@ app.use('/adminlogin',adminLoginRoute)
 app.use('/display-announcements', displayAnnouncementsRoute);
 app.use('/insert-announcements', insertAnnouncementsRoute);
 app.use('/delete-announcement', deleteAnnouncementRoute);
+app.use('/get-student-news',getStudentNewsRoute);
 // Start Server
 
 const port = process.env.PORT || 5000;

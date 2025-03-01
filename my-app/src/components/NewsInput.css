@@ -1,0 +1,26 @@
+.news-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+  }
+  .check-button {
+    background-color: #666;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 25px;
+    cursor: pointer;
+    align-self: flex-start;
+  }
+  
+  .check-button:hover {
+    background-color: #555;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }

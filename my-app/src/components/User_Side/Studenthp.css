@@ -93,15 +93,15 @@
   font-weight: 500;
 }
 
-.news-input {
+/* .news-input {
   width: 100%;
   padding: 10px;
   border: 2px solid #ddd;
   border-radius: 4px;
   background-color: white;
-}
+} */
 
-.check-button {
+/* .check-button {
   background-color: #666;
   color: white;
   border: none;
@@ -113,7 +113,7 @@
 
 .check-button:hover {
   background-color: #555;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {
