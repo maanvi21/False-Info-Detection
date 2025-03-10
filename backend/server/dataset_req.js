@@ -9,18 +9,18 @@ const FILE_PATH = path.join(__dirname, "newdataset.csv");
 // POST route to add an announcement to both MongoDB and CSV
 router.post("/", async (req, res) => {
   try {
-    const { text } = req.body;
+    const { title, description } = req.body;
 
-    if (!text) {
-      return res.status(400).json({ error: "No text provided" });
+    if (!title) {
+      return res.status(400).json({ error: "No title provided" });
     }
 
     // Insert into MongoDB
-    const newAnnouncement = new Announcements({ title: text, description: "-" });
+    const newAnnouncement = new Announcements({ title, description: description || "-" });
     await newAnnouncement.save();
 
     // Insert into CSV
-    const csvLine = `"${text}"\n`;
+    const csvLine = `"${title}"\n`;
     fs.appendFile(FILE_PATH, csvLine, (err) => {
       if (err) {
         console.error("❌ Error writing to CSV:", err);
