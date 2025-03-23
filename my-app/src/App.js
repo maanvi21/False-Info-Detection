@@ -7,12 +7,14 @@ import StudentLogin from './components/Sign In/StudentLogin';
 import { BrowserRouter, Routes, Route, } from "react-router-dom";
 
 
+
 import StudentHomepage from './components/User_Side/Studenthp';
 import Adminhp from './components/Admin Side/Adminhp';
 import AdminStudentRegister from './components/Admin Side/AdminStudentRegister';
 import About from './components/About/About';
 import Contact from './components/Contact/Contact';
 import Home from './components/Home/Home';
+import FetchAnnouncements from './components/FetchAnnouncement';
 
 function App() {
   return (
@@ -29,7 +31,7 @@ function App() {
         <Route path='/studenthome' element={<StudentHomepage/>}/>
         <Route path='/adminhome' element={<Adminhp/>}/>
         <Route path='/registerstudent' element={<AdminStudentRegister/>}/>
-        
+        <Route path='/announcement' element={<FetchAnnouncements />} />
         <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>
       </Routes>

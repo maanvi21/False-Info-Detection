@@ -23,6 +23,7 @@ export default function NewsInput() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ text: news }),
+        // news in frontend is gettting sent as text to backend
       });
       const data = await response.json();
       

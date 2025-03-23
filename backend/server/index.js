@@ -59,6 +59,7 @@ app.use('/insert-announcements', insertAnnouncementsRoute);
 app.use('/delete-announcement', deleteAnnouncementRoute);
 app.use('/get-student-news',getStudentNewsRoute);
 app.use('/get-top-matches',getTopMatchesRoute);
+
 // Start Server
 
 const port = process.env.PORT || 5000;
