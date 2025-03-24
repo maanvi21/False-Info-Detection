@@ -6,28 +6,13 @@ const path = require('path');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const Announcement = require('./announcements_model'); // Adjust path if needed
 
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: function(req, file, cb) {
-    const uploadsDir = path.join(__dirname, 'uploads');
-    // Create uploads directory if it doesn't exist
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
-    }
-    cb(null, uploadsDir);
-  },
-  filename: function(req, file, cb) {
-    // Create unique filename with timestamp
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-
+// Configure multer for memory storage
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // Helper function to append announcement title to CSV
 const appendTitleToCSV = async (announcement) => {
-  const csvFilePath = path.join(__dirname, 'data', 'announcement_titles.csv');
+  const csvFilePath = path.join(__dirname, 'data', 'newdataset.csv');
   const dirPath = path.dirname(csvFilePath);
   
   // Create directory if it doesn't exist
@@ -53,48 +38,37 @@ const appendTitleToCSV = async (announcement) => {
 
   try {
     await csvWriter.writeRecords(csvData);
-    console.log('Announcement title added to CSV successfully');
+    console.log('✅ Announcement title added to CSV successfully');
   } catch (error) {
-    console.error('Error writing to CSV:', error);
+    console.error('❌ Error writing to CSV:', error);
   }
 };
 
-// POST route for adding announcements
+// POST route for adding announcements with file upload
 router.post('/', upload.single('file'), async (req, res) => {
   try {
-    const { title, description } = req.body;
-
-    if (!title) {
-      return res.status(400).json({ error: 'Title is required' });
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
     }
-
-    // Create file object if file was uploaded
-    const file = req.file ? {
-      path: req.file.path,
-      filename: req.file.originalname,
-      contentType: req.file.mimetype
-    } : null;
-
-    // Create new announcement in database
-    const newAnnouncement = new Announcement({
-      title,
-      description,
-      file
-    });
-
-    // Save to database
-    const savedAnnouncement = await newAnnouncement.save();
     
-    // Append only the title to CSV file
-    await appendTitleToCSV(savedAnnouncement);
-
-    res.status(201).json({ 
-      message: 'Announcement added successfully!',
-      announcement: savedAnnouncement
+    // Create new announcement with file buffer
+    const newAnnouncement = new Announcement({
+      title: req.body.title,
+      description: req.body.description,
+      file: {
+        data: req.file.buffer,
+        contentType: req.file.mimetype,
+        filename: req.file.originalname
+      }
     });
+    
+    await newAnnouncement.save();
+    await appendTitleToCSV(newAnnouncement);
+    res.status(201).json({ message: '✅ Announcement with file uploaded successfully' });
+    
   } catch (error) {
-    console.error('Error adding announcement:', error);
-    res.status(500).json({ error: 'Failed to add announcement' });
+    console.error('❌ Upload error:', error);
+    res.status(500).json({ error: 'Error uploading file' });
   }
 });
 
