@@ -31,8 +31,7 @@ function App() {
         <Route path='/studenthome' element={<StudentHomepage/>}/>
         <Route path='/adminhome' element={<Adminhp/>}/>
         <Route path='/registerstudent' element={<AdminStudentRegister/>}/>
-        <Route path='/announcement' element={<FetchAnnouncements />} />
-        <Route path='/about' element={<About/>}/>
+        <Route path="/announcement/:id" element={<FetchAnnouncements />} />        <Route path='/about' element={<About/>}/>
         <Route path='/contact' element={<Contact/>}/>
       </Routes>
       </BrowserRouter>
