@@ -11,7 +11,7 @@ const Adminhp = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
-  
+
   const scrollRef = useRef(null);
 
   // Fetch announcements when component mounts and after posting/deleting
@@ -43,10 +43,11 @@ const Adminhp = () => {
 
   const handleTitleChange = (e) => setNewTitle(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
-  
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
-    setSelectedFile(file ? file.name : null);
+    setSelectedFile(file);
+    console.log("Selected file:", file); // Debugging log
   };
 
   const clearInputs = () => {
@@ -57,7 +58,6 @@ const Adminhp = () => {
 
   const openDeleteModal = () => {
     setShowDeleteModal(true);
-    // Modal animation
     setTimeout(() => {
       const modal = document.querySelector('.modal-content');
       if (modal) {
@@ -76,14 +76,14 @@ const Adminhp = () => {
 
   const deleteAnnouncement = async () => {
     if (!selectedAnnouncement) return;
-   
+
     try {
       const response = await fetch(`http://localhost:5000/delete-announcement/${selectedAnnouncement._id}`, {
         method: "DELETE",
       });
 
       if (response.ok) {
-        await fetchAnnouncements(); // Refresh the announcements list
+        await fetchAnnouncements();
         alert("Announcement deleted successfully!");
         closeDeleteModal();
       } else {
@@ -101,26 +101,26 @@ const Adminhp = () => {
       alert("Please enter an announcement title");
       return;
     }
-  
+
+    const formData = new FormData();
+    formData.append("title", newTitle);
+    formData.append("description", description);
+    if (selectedFile) {
+      formData.append("file", selectedFile);
+    }
+
     try {
-      const response = await fetch("http://localhost:5000/post-news", {
+      const response = await fetch("http://localhost:5000/insert-announcements", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          title: newTitle,
-          description: description,
-          file: selectedFile,
-        }),
+        body: formData,
       });
-  
-      const data = await response.json();
-  
+
       if (response.ok) {
-        await fetchAnnouncements(); // Refresh the announcements list
+        await fetchAnnouncements();
         alert("Announcement added successfully!");
         clearInputs();
       } else {
-        alert(`Failed to add announcement: ${data.error}`);
+        alert("Failed to add announcement");
       }
     } catch (error) {
       console.error("❌ Error:", error);
@@ -158,7 +158,7 @@ const Adminhp = () => {
                 📎 Attach File
                 <input type="file" onChange={handleFileChange} />
               </label>
-              {selectedFile && <p className="file-name">Attached: {selectedFile}</p>}
+              {selectedFile && <p className="file-name">Attached: {selectedFile.name}</p>}
             </div>
 
             <div className="button-group">
@@ -176,15 +176,15 @@ const Adminhp = () => {
             <ul>
               {announcements.map((announcement) => (
                 <li key={announcement._id}>
-                 <button
-        onClick={() => {
-          console.log("Selecting:", announcement);
-          setSelectedAnnouncement(announcement);
-        }}
-        className={selectedAnnouncement?._id === announcement._id ? "selected" : ""}
-      >
-        {announcement.title}
-      </button>
+                  <button
+                    onClick={() => {
+                      console.log("Selecting:", announcement);
+                      setSelectedAnnouncement(announcement);
+                    }}
+                    className={selectedAnnouncement?._id === announcement._id ? "selected" : ""}
+                  >
+                    {announcement.title}
+                  </button>
                 </li>
               ))}
             </ul>

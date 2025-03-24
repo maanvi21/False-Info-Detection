@@ -9,6 +9,7 @@ const checkNews = path.join(__dirname, "studentchecknews.json");
 // Post route
 router.post("/", async (req, res) => {
   try {
+    // text is basiclly the news that is being sent from frontend
     const { text } = req.body;
     if (!text) {
       return res.status(400).json({ error: "No text provided" });
