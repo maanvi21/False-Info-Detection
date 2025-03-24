@@ -12,7 +12,7 @@ const upload = multer({ storage: storage });
 
 // Helper function to append announcement title to CSV
 const appendTitleToCSV = async (announcement) => {
-  const csvFilePath = path.join(__dirname, 'data', 'newdataset.csv');
+  const csvFilePath = path.join(__dirname, 'newdataset.csv');
   const dirPath = path.dirname(csvFilePath);
   
   // Create directory if it doesn't exist
