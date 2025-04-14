@@ -1,0 +1,47 @@
+.announcement-details-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+  }
+  
+  .announcement-header {
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .announcement-header h1 {
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .announcement-date {
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .announcement-body {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .download-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .download-button:hover {
+    background-color: #0056b3;
+  }
+  
