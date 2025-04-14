@@ -23,7 +23,7 @@ export default function NewsInput() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ text: news }),
-        // news in frontend is gettting sent as text to backend
+        // news in frontend is getting sent as text to backend
       });
       const data = await response.json();
       
@@ -51,16 +51,32 @@ export default function NewsInput() {
       }
       
       const data = await response.json();
-      console.log("Received data:", data);
+      console.log("Raw data received:", data);
+
+      // Check if data exists first
+      if (!data) {
+        throw new Error("No data received from server");
+      }
+
+      // Convert to string if it's not already a string
+      let csvString = data.results;
+      if (typeof csvString !== 'string') {
+        csvString = JSON.stringify(data.results);
+        console.log("Converted non-string data to string:", csvString);
+      }
+
+      // Additional check to make sure we have valid data
+      if (!csvString || csvString.trim().length === 0) {
+        throw new Error("Empty or invalid CSV data received");
+      }
+
+      const parsedData = parseCSV(csvString);
+      console.log("Parsed data:", parsedData);
       
-      if (data.results) {
-        // Parse CSV data
-        const parsedData = parseCSV(data.results);
-        console.log("Parsed data:", parsedData);
+      if (parsedData.length > 0) {
         setTopMatches(parsedData);
       } else {
-        console.error("No results in data:", data);
-        alert("No match results returned");
+        console.warn("No matches found in the parsed data");
       }
     } catch (error) {
       console.error("Error fetching top matches:", error);
@@ -68,46 +84,69 @@ export default function NewsInput() {
     }
   }
 
-  // Simple CSV parser
   const parseCSV = (csvString) => {
-    const lines = csvString.split('\n');
-    const headers = lines[0].split(',');
-    const result = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-      if (!lines[i].trim()) continue;
+    try {
+      // Split by newline to get rows
+      const rows = csvString.split('\n').filter(row => row.trim().length > 0);
+      console.log("Raw rows:", rows);
       
-      const values = lines[i].split(',');
-      const entry = {};
-      
-      for (let j = 0; j < headers.length; j++) {
-        let value = values[j] || '';
-        
-        // Handle quoted values
-        if (value.startsWith('"') && !value.endsWith('"')) {
-          let k = j;
-          while (k < values.length && !values[k].endsWith('"')) {
-            k++;
-          }
-          if (k > j) {
-            value = values.slice(j, k + 1).join(',');
-            j = k;
-          }
-        }
-        
-        // Remove quotes if present
-        if (value.startsWith('"') && value.endsWith('"')) {
-          value = value.substring(1, value.length - 1);
-        }
-        
-        entry[headers[j].trim()] = value;
+      if (rows.length < 2) {
+        console.warn("Not enough rows in CSV data");
+        return [];
       }
       
-      result.push(entry);
+      // Extract header row
+      const headers = rows[0].split(',').map(h => h.trim());
+      console.log("Headers:", headers);
+      
+      const results = [];
+      
+      // Process each data row
+      for (let i = 1; i < rows.length; i++) {
+        const row = rows[i];
+        
+        // Handle quoted strings with commas inside them
+        const values = [];
+        let inQuotes = false;
+        let currentValue = '';
+        
+        for (let j = 0; j < row.length; j++) {
+          const char = row[j];
+          
+          if (char === '"') {
+            inQuotes = !inQuotes;
+          } else if (char === ',' && !inQuotes) {
+            values.push(currentValue);
+            currentValue = '';
+          } else {
+            currentValue += char;
+          }
+        }
+        
+        // Don't forget to add the last value
+        values.push(currentValue);
+        
+        // Create object from header and values
+        const rowObj = {};
+        headers.forEach((header, index) => {
+          // Remove surrounding quotes if present
+          let value = values[index] || '';
+          if (value.startsWith('"') && value.endsWith('"')) {
+            value = value.substring(1, value.length - 1);
+          }
+          rowObj[header] = value.trim();
+        });
+        
+        results.push(rowObj);
+      }
+      
+      console.log("Parsed results:", results);
+      return results;
+    } catch (error) {
+      console.error("Error parsing CSV:", error);
+      return [];
     }
-    
-    return result;
-  }
+  };
 
   return (
     <div>
@@ -124,19 +163,18 @@ export default function NewsInput() {
           <Button text={loading ? "CHECKING..." : "CHECK"} onClick={postNews} disabled={loading} />
         </div>
         
-        {/* Display top matches */}
-        {topMatches.length > 0 && (
-          <div className="top-matches">
-            <h3>Top 3 Similar News Items:</h3>
-            {topMatches.map((match, index) => (
-              <div key={index} className="match-item">
-                <h4>Match #{index + 1}</h4>
-                <p>{match.Original_Text}</p>
-                <p className="match-score">Similarity Score: {parseFloat(match.Final_Score).toFixed(4)}</p>
-              </div>
-            ))}
-          </div>
-        )}
+        {topMatches
+  .filter(match => match.Original_Text && match.Original_Text.trim().length > 0)
+  .map((match, index) => (
+    <div key={index} className="match-item">
+      <h4>Match #{index + 1}</h4>
+      <p>{match.Original_Text}</p>
+      <p className="match-score">
+        Similarity Score: {match.Final_Score ? match.Final_Score : "N/A"}
+      </p>
+    </div>
+  ))
+}
         
         {response && (
           <div className="response">
