@@ -21,7 +21,7 @@ nlp = spacy.load("en_core_web_sm")
 with open('studentchecknews.json', 'r') as file:
     data = json.load(file)
 
-# Extract news text safely
+# Extract news text entered by student safely
 news_text = data.get("news", "")
 
 # Function to preprocess text: Tokenization, Lemmatization, Stopword Removal
