@@ -73,7 +73,7 @@ const [department, setDepartment]=useState("");
               placeholder="Enter your password"
             />
           </div>
-          <div className="form-group">
+          {/* <div className="form-group">
           <label>Department</label>
           <select
             value={department}
@@ -87,7 +87,7 @@ const [department, setDepartment]=useState("");
             <option value="Admissions">Admissions</option>
             <option value="Academics">Academics</option>
           </select>
-          </div>
+          </div> */}
 
 
           <Button text='LOGIN' onClick={handleSubmit}/>
